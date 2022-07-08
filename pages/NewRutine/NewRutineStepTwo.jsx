@@ -11,13 +11,17 @@ const NewRutineStepTwo=()=>{
     const [levelsByLanguageSelected,setLevelsByLanguageSelected]=useState([])
     const [objectivesByLanguageSelected,setObjectivesByLanguageSelected]=useState([])
     useEffect(() => {
-   if(objectives.length>0 && trainingLevels.length>0){
+   if(objectives.length>0){
  
-    const trainingLevelsFilteredByLang=filterByLang(trainingLevels)
+  
 const objectivesFilteredByLang=filterByLang(objectives)
 
-    setLevelsByLanguageSelected(trainingLevelsFilteredByLang)
+   
     setObjectivesByLanguageSelected(objectivesFilteredByLang)
+   }
+   if(trainingLevels.length>0){
+    const trainingLevelsFilteredByLang=filterByLang(trainingLevels)
+    setLevelsByLanguageSelected(trainingLevelsFilteredByLang)
    }
   
     }, [objectives,trainingLevels])

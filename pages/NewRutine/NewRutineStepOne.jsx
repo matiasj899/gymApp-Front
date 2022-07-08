@@ -41,6 +41,7 @@ const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
+      marginTop:30
     }}
   >
      {rutineForm.userId ? (
