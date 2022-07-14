@@ -34,14 +34,17 @@ const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
       userId: afiliate._id,
     });
   };
-  const topMenu=()=>{
-   return ( <View
+  const TopMenu=({children})=>{
+    console.log(children)
+   return (<View> <View
     style={{
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      marginTop:30
+      height:64,
+      borderBottomColor:'gray',
+      borderBottomWidth:1,
     }}
   >
      {rutineForm.userId ? (
@@ -64,6 +67,8 @@ const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
     ) : (
       <View><Text></Text></View>
     )}
+  </View>
+  {children}
   </View>)
   }
 
@@ -86,6 +91,7 @@ const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
           style={{
             display: "flex",
             flexDirection: "column",
+            
             //alignItems: "start",
           }}
          
@@ -122,16 +128,16 @@ const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
   return (
     <View>
      
-    {topMenu()}
-
-      <View>
+    
+<TopMenu><View style={{paddingHorizontal: 20 }}>
         <View><Text>Lista de afiliados</Text></View>
         <SafeAreaView>
         <FlatList data={afiliatesEntries} renderItem={renderAlphabetically} keyExtractor={item=>item[0]}>
          
         </FlatList>
         </SafeAreaView>
-      </View>
+      </View></TopMenu>
+     
     </View>
   );
 };

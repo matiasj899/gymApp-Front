@@ -13,81 +13,28 @@ import {
   Roboto_400Regular_Italic,
 } from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
-import useAfiliates from "../../repositories/useAfiliates";
-import { groupByKey } from "../../utils/utils";
-import NewRutineStepOne from "./NewRutineStepOne";
-import NewRutineStepTwo from "./NewRutineStepTwo";
+import useUserRole from "../hooks/useUserRole";
+import Trainer from "./Trainer";
+import Afiliate from "./Afiliate";
 
-const NewRutine = () => {
+
+
+const Challenges = () => {
+
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_400Regular_Italic,
   });
-  const { afiliates, loadingAfiliates } = useAfiliates();
-  const [afiliatesOrderedByGroup, setAfiliatesOrderedByGroup] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("A");
-  const [rutineForm, setRutineForm] = useState({
-    userId: null,
-    days: null,
-  });
 
-const sortAfiliates=(usersFilteredByAfiliateRol)=>{
-  usersFilteredByAfiliateRol.map((afiliate) => {
-    afiliate.alphabet = afiliate.userName.split("")[0];
-    return afiliate;
-  });
-  const sortedAfiliates=usersFilteredByAfiliateRol.sort((a, b) => a.userName.localeCompare(b.userName));
-  return sortedAfiliates
-}
-
-  useEffect(() => {
-    if (afiliates.length > 0) {
-    
-      const usersFilteredByAfiliateRol=afiliates.filter((afiliate)=>afiliate.roleId?.name!=="Trainer")
-     
-    
-
-const sortAfiliatesResult=sortAfiliates(usersFilteredByAfiliateRol)
-
-      const orderedAfiliates = groupByKey(sortAfiliatesResult, "alphabet");
-    
-      setAfiliatesOrderedByGroup(orderedAfiliates);
-    }
-  }, [afiliates]);
-
-
-  const SelectedTab = () => {
-    switch (selectedTab) {
-      case "A":
-        return (
-        <NewRutineStepOne rutineForm={rutineForm} setRutineForm={setRutineForm} afiliatesOrderedByGroup={afiliatesOrderedByGroup} selectedTab={selectedTab} setSelectedTab={setSelectedTab}></NewRutineStepOne>
-        )
-      case "B":
-        return (
-        <NewRutineStepTwo></NewRutineStepTwo>
-        );
-      case "C":
-        return (
-          <View>
-            <Text>3</Text>
-          </View>
-        );
-      default:
-        return; 
-    }
-  };
-
-  if (!fontsLoaded || !afiliates) {
+  if (!fontsLoaded) {
     return <AppLoading />;
-  }else if(afiliates.length===0){
-    return (<View style={[styles.container, { paddingHorizontal: 20 }]}>
-    <Text>Cargando</Text>
-  </View>)
   } else {
     return (
-      <View style={[styles.container]}>
-        {SelectedTab()}
-      </View>
+      <>
+       
+      <View><Text>Desafios</Text></View>
+      
+      </>
     );
   }
 };
@@ -98,16 +45,6 @@ const styles = StyleSheet.create({
   imageCn: {
     width: "100%",
     height: "50%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  boxChallenge: {
-    height: 75,
-    width: 75,
-    borderWidth: 1,
-    borderColor: "lightgray",
-    borderRadius: 5,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -149,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
-    width: "100%",
+    width: "90%",
     height: 50,
   },
   blueBtn: {
@@ -203,4 +140,4 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
 });
-export default NewRutine;
+export default Challenges;

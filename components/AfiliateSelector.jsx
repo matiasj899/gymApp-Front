@@ -13,6 +13,7 @@ import {
   Roboto_400Regular_Italic,
 } from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
+import ProfileImage from "./ProfileImage";
 
 const AfiliateSelector=({handleOnPress,afiliate,rutineForm})=>{
    
@@ -39,16 +40,7 @@ const AfiliateSelector=({handleOnPress,afiliate,rutineForm})=>{
               width: 200,
             }}
           >
-            <View>
-              <Image
-                source={{uri:afiliate.profilePic}}
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderRadius: 50,
-                }}
-              ></Image>
-            </View>
+            <ProfileImage profilePic={afiliate.profilePic}></ProfileImage>
 
             <Text
               style={{

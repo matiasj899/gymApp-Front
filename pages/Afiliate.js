@@ -16,13 +16,17 @@ import AppLoading from "expo-app-loading";
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { removeDataFromLocalStorage } from "../services/loginService";
 
-const Trainer = () => {
+const Afiliate = () => {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_400Regular_Italic,
   });
   const navigation = useNavigation()
-
+  const handleLogout=async()=>{
+ await removeDataFromLocalStorage('token')
+ await removeDataFromLocalStorage('userData')
+ navigation.push('Login')
+  }
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
@@ -37,8 +41,22 @@ const Trainer = () => {
             paddingHorizontal: 5,
           }}
         >
-   
-       
+          <View>
+            <Text>Menu</Text>
+          </View>
+          <View style={styles.btnCn}>
+          <TouchableOpacity
+            style={[styles.btn, styles.blueBtn, { height: 70 }]}
+            activeOpacity={0.7}
+            onPress={() => {
+             handleLogout()
+            }}
+          >
+            <Text style={[styles.text, styles.blueBtnText]}>
+              Cerrar sesion
+            </Text>
+          </TouchableOpacity>
+        </View>
           <View
             style={{
               width: "80%",
@@ -62,7 +80,7 @@ const Trainer = () => {
             }}
           >
             <Text style={[styles.text, styles.blueBtnText]}>
-              CREAR RUTINA PERSONALIZADA
+              VER RUTINA
             </Text>
           </TouchableOpacity>
         </View>
@@ -196,4 +214,4 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
 });
-export default Trainer;
+export default Afiliate

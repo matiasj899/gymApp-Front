@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Text,
   View,
@@ -14,9 +14,20 @@ import {
 } from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
 import LoginForm from "../components/LoginForm/LoginForm";
+import useIsLogged from "../hooks/useIsLogged";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
+ const {isLogged}= useIsLogged()
+ console.log(isLogged)
   const [wantLogin, setWantLogin] = useState(false);
+  const navigation = useNavigation();
+useEffect(() => {
+if(isLogged){
+  navigation.push("TabBar");
+}
+}, [isLogged])
+
 
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,

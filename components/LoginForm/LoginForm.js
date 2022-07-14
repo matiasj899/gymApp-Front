@@ -14,10 +14,12 @@ import {
 } from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { loginService, setDataToLocalStorage } from "../../services/loginService";
 
 
 const LoginForm=()=>{
-    const [text, setText] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     let [fontsLoaded] = useFonts({
       Roboto_400Regular,
@@ -25,7 +27,15 @@ const LoginForm=()=>{
     });
     const navigation = useNavigation()
     const route = useRoute()
+const handleLogin=async()=>{
+  const {token,userExists}=await loginService({email,password})
 
+ if(token){
+  await setDataToLocalStorage('token',token);
+  await setDataToLocalStorage('userData',userExists);
+  navigation.push('TabBar')
+ }
+}
   if (!fontsLoaded) {
     return <AppLoading />;
   } else{
@@ -35,11 +45,12 @@ const LoginForm=()=>{
       <View style={styles.btnCn}>
         <View style={[styles.btn, styles.inputCn]}>
           <TextInput
-            value={text}
+           autoCapitalize="none"
+            value={email}
             style={styles.input}
             placeholder="Ingresar correo electrónico"
-            onChangeText={(text) => {
-              setText(text);
+            onChangeText={(email) => {
+              setEmail(email);
             }}
           />
         </View>
@@ -47,23 +58,27 @@ const LoginForm=()=>{
       <View style={styles.btnCn}>
         <View style={isFocused?[styles.btn, styles.inputCn,styles.inputCnFocused]:[styles.btn, styles.inputCn]} >
           <TextInput
-            value={text}
+          autoCapitalize="none"
+            value={password}
             style={styles.input}
             placeholder="Ingresar contraseña"
             onFocus={()=>setIsFocused(true)}
             onBlur={()=>setIsFocused(false)}
-            onChangeText={(text) => {
-              setText(text);
+            onChangeText={(password) => {
+              setPassword(password);
             }}
           />
         </View>
       </View>
-      <View style={styles.btnCn} pointerEvents={!text?'none':'auto'}>
+      <View style={styles.btnCn} pointerEvents={!email?'none':'auto'}>
             <TouchableOpacity
-              style={!text?[styles.btn, styles.disableBtn]:[styles.btn, styles.blueBtn]}
+              style={!email?[styles.btn, styles.disableBtn]:[styles.btn, styles.blueBtn]}
               activeOpacity={0.7}
               onPress={() => {
-                navigation.push('Trainer')
+                //navigation.push('Trainer')
+                handleLogin()
+               
+                
                 //setWantLogin(true);
               }}
             >
