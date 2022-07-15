@@ -4,5 +4,7 @@ export const spanishDict={
     gainMuscle:"Ganar musculatura.",
     starter:"Iniciante.",
     intermediate:"Intermedio.",
-    advanced:"Avanzado."
+    advanced:"Avanzado.",
+    Trainer:'Entrenador',
+    Afiliate:'Afilidado'
 }

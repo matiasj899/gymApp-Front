@@ -2,53 +2,14 @@ import { createDrawerNavigator,useDrawerStatus  } from '@react-navigation/drawer
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { useEffect,useState } from 'react';
 import { View,Text, StyleSheet,TouchableOpacity  } from 'react-native';
+import DrawnerMenuContent from '../components/DrawnerMenuContent';
 import ProfileImage from '../components/ProfileImage';
 import { getDataFromLocalStorage, removeDataFromLocalStorage } from '../services/loginService';
 import HomeByRole from './HomeByRole';
 import Profile from './Profile';
 import TabBar from './TabBar';
 
-function DrawerMenuContent() {
-  const [user,setUser]=useState()
-  const navigation = useNavigation()
-  const isDrawerOpen = useDrawerStatus() === 'open';
 
-  const getUser=async()=>{
-    const userData=await getDataFromLocalStorage('userData')
-   return userData
-     }
-
-useEffect(() => {
- if(isDrawerOpen){
- getUser().then((res)=>setUser(res)).catch((err)=>console.log(err))
- }
-}, [isDrawerOpen])
-
-  const handleLogout=async()=>{
-    await removeDataFromLocalStorage('token')
-    await removeDataFromLocalStorage('userData')
-    navigation.push('Login')
-     }
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',backgroundColor:'#363535' }}>
-        <ProfileImage profilePic={user?.profilePic} width={100} height={100}></ProfileImage>
-          <View style={styles.btnCn}>
-          <TouchableOpacity
-            style={[styles.btn, styles.blueBtn, { height: 70 }]}
-            activeOpacity={0.7}
-            onPress={() => {
-             handleLogout()
-            }}
-          >
-            <Text style={[styles.text, styles.blueBtnText]}>
-              Cerrar sesion
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
-   
  
   
   const DrawerMenu = createDrawerNavigator();
@@ -57,7 +18,7 @@ useEffect(() => {
     return (
       <DrawerMenu.Navigator
         id="RightDrawer"
-        drawerContent={(props) => <DrawerMenuContent {...props} />}
+        drawerContent={(props) => <DrawnerMenuContent {...props} />}
         screenOptions={{
           drawerPosition: 'left',
           headerShown: true,
