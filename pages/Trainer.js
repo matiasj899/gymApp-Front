@@ -33,23 +33,13 @@ const Trainer = () => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            paddingVertical: 50,
+            paddingVertical: 20,
             paddingHorizontal: 5,
           }}
         >
    
        
-          <View
-            style={{
-              width: "80%",
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ fontWeight: "bold", fontSize: 14 }}>SPORTFIT</Text>
-          </View>
+      
           <View style={{ width: "10%" }}></View>
         </View>
 

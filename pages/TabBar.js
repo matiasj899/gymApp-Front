@@ -7,6 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NewRutine from "./NewRutine/NewRutine";
 import DrawerMenuScreen from "./DrawnerMenu";
 import useCurrentRoute from "../hooks/useCurrentRoute";
+import Icon from 'react-native-vector-icons/Entypo';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -44,9 +46,24 @@ const TabBar = () => {
         screenOptions={{
           headerShown: false,
         }}
+        initialRouteName='Home'
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Cuenta" component={Profile} />
+             <Tab.Screen name="Afiliados" component={Profile} options={{
+        tabBarIcon:({ focused, color, size })=>{
+return <Icon name={'clipboard'} color='white' size={25}></Icon>
+        }
+        }}/>
+        <Tab.Screen name="Home" component={HomeStackScreen} options={{
+        tabBarIcon:({ focused, color, size })=>{
+return <Icon name={'home'} color='white' size={25}></Icon>
+        }
+        }}/>
+        <Tab.Screen name="Cuenta" component={Profile} options={{
+        tabBarIcon:({ focused, color, size })=>{
+return <MaterialIcon name={'account-circle'} color='white' size={25}></MaterialIcon>
+        }
+        }}/>
+        
         
       </Tab.Navigator>
     </>

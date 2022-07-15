@@ -25,8 +25,7 @@ const NewRutineStepOne = ({
   setSelectedTab,
   selectedTab,
 }) => {
-
-const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
+  const afiliatesEntries = Object.entries(afiliatesOrderedByGroup);
 
   const handleSelectAfiliate = (afiliate) => {
     setRutineForm({
@@ -34,83 +33,92 @@ const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
       userId: afiliate._id,
     });
   };
-  const TopMenu=({children})=>{
-    console.log(children)
-   return (<View> <View
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      height:64,
-      borderBottomColor:'gray',
-      borderBottomWidth:1,
-    }}
-  >
-     {rutineForm.userId ? (
-      <TouchableOpacity onPress={() => setRutineForm({
-        userId: null,
-        days: null,
-      })}>
-        <Text>x</Text>
-      </TouchableOpacity>
-    ) : (
-      <View><Text>Atras</Text></View>
-    )}
-    <View>
-      <Text>Seleccionar</Text>
-    </View>
-    {rutineForm.userId ? (
-      <TouchableOpacity onPress={() => setSelectedTab("B")}>
-        <Text>Adelante</Text>
-      </TouchableOpacity>
-    ) : (
-      <View><Text></Text></View>
-    )}
-  </View>
-  {children}
-  </View>)
-  }
-
-  const renderEachAfiliate=(afiliate)=>{
- 
+  const TopMenu = ({ children }) => {
     return (
-        <AfiliateSelector
-          handleOnPress={handleSelectAfiliate}
-          afiliate={afiliate.item}
-          rutineForm={rutineForm}
-          key={afiliate.item._id}
-        ></AfiliateSelector>
-      );
-  }
+      <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: 64,
+            borderBottomColor: "gray",
+            borderBottomWidth: 1,
+          }}
+        >
+          {rutineForm.userId ? (
+            <TouchableOpacity
+              onPress={() =>
+                setRutineForm({
+                  userId: null,
+                  days: null,
+                })
+              }
+            >
+              <Text>x</Text>
+            </TouchableOpacity>
+          ) : (
+            <View>
+              <Text>Atras</Text>
+            </View>
+          )}
+          <View>
+            <Text>Seleccionar</Text>
+          </View>
+          {rutineForm.userId ? (
+            <TouchableOpacity onPress={() => setSelectedTab("B")}>
+              <Text>Adelante</Text>
+            </TouchableOpacity>
+          ) : (
+            <View>
+              <Text></Text>
+            </View>
+          )}
+        </View>
+        {children}
+      </View>
+    );
+  };
 
-  const renderAlphabetically=(group)=>{
-   
+  const renderEachAfiliate = (afiliate) => {
     return (
+      <AfiliateSelector
+        handleOnPress={handleSelectAfiliate}
+        afiliate={afiliate.item}
+        rutineForm={rutineForm}
+        key={afiliate.item._id}
+      ></AfiliateSelector>
+    );
+  };
+
+  const renderAlphabetically = (group) => {
+    return (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "column",
+
+          //alignItems: "start",
+        }}
+      >
+        <View style={{ width: 10 }}>
+          <Text>{group.item[0]}</Text>
+        </View>
         <View
           style={{
             display: "flex",
             flexDirection: "column",
-            
-            //alignItems: "start",
+            alignItems: "center",
+            paddingHorizontal: 10,
+            width: "100%",
           }}
-         
         >
-          <View style={{ width: 10 }}>
-            <Text>{group.item[0]}</Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              paddingHorizontal: 10,
-              width: "100%",
-            }}
-          >
-             <FlatList data={group.item[1]} renderItem={renderEachAfiliate} keyExtractor={item=>item._id}>
-         
-         </FlatList>
+          <FlatList
+            data={group.item[1]}
+            renderItem={renderEachAfiliate}
+            keyExtractor={(item) => item._id}
+          ></FlatList>
           {/*  {group[1]?.map((afiliate) => {
               return (
                 <AfiliateSelector
@@ -121,23 +129,26 @@ const afiliatesEntries=Object.entries(afiliatesOrderedByGroup)
                 ></AfiliateSelector>
               );
             })}*/}
-          </View>
         </View>
-      );
-  }
+      </View>
+    );
+  };
   return (
     <View>
-     
-    
-<TopMenu><View style={{paddingHorizontal: 20 }}>
-        <View><Text>Lista de afiliados</Text></View>
-        <SafeAreaView>
-        <FlatList data={afiliatesEntries} renderItem={renderAlphabetically} keyExtractor={item=>item[0]}>
-         
-        </FlatList>
-        </SafeAreaView>
-      </View></TopMenu>
-     
+      <TopMenu>
+        <View style={{ paddingHorizontal: 20 }}>
+          <View>
+            <Text>Lista de afiliados</Text>
+          </View>
+          <SafeAreaView>
+            <FlatList
+              data={afiliatesEntries}
+              renderItem={renderAlphabetically}
+              keyExtractor={(item) => item[0]}
+            ></FlatList>
+          </SafeAreaView>
+        </View>
+      </TopMenu>
     </View>
   );
 };

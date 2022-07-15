@@ -61,8 +61,11 @@ useEffect(() => {
         screenOptions={{
           drawerPosition: 'left',
           headerShown: true,
+          headerTitleAlign:'center',
+          headerShadowVisible:false,
+          
         }}>
-        <DrawerMenu.Screen name="HomeDrawer" component={HomeByRole} />
+        <DrawerMenu.Screen name="SPORTFIT" component={HomeByRole} />
       </DrawerMenu.Navigator>
     );
   }
