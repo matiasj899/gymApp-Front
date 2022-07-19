@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TopMenu from "../../components/TopMenu";
 import { lang } from "../../env";
 import useObjectives from "../../repositories/useObjectives";
@@ -8,6 +8,7 @@ import { filterByLang } from "../../utils/utils";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import LevelSelector from "../../components/LevelSelector";
 import useDays from "../../repositories/useDays";
+import DaysSelector from "../../components/DaysSelector";
 
 const NewRutineStepThree = ({
   rutineForm,
@@ -17,28 +18,19 @@ const NewRutineStepThree = ({
   selectedTab,
 }) => {
   const { days, loadingDays } = useDays();
-  const { trainingLevels, loadingTrainingLevels } = useTrainingLevel();
-  const [levelsByLanguageSelected, setLevelsByLanguageSelected] = useState([]);
-  const [objectivesByLanguageSelected, setObjectivesByLanguageSelected] =
+ 
+  const [daysByLanguageSelected, setDaysByLanguageSelected] =
     useState([]);
 
   useEffect(() => {
-  console.log(days)
+    if (days.length > 0) {
+      const daysFilteredByLang = filterByLang(days);
+
+      setDaysByLanguageSelected(daysFilteredByLang);
+    }
   }, [days]);
-  const handleSelectLevel = (level) => {
-    console.log(level);
-    setRutineForm({
-      ...rutineForm,
-      levelId: level._id,
-    });
-  };
-  const handleSelectObjective = (objective) => {
-    console.log(objective);
-    setRutineForm({
-      ...rutineForm,
-      objectiveId: objective._id,
-    });
-  };
+
+ 
   const handleStepBack=()=>{
     setSelectedTab('A')
     setRutineForm({
@@ -88,17 +80,31 @@ const NewRutineStepThree = ({
       )}
     </View>
   );
-  return (
-    <View style={styles.container}>
-      <TopMenu buttons={buttons}>
-     
-      
-      </TopMenu>
-         <View style={{display:'flex',justifyContent:'space-evenly',alignItems:'center', height:'90%'}}>
-       
-        </View>
+  if(loadingDays){
+    return(
+      <View style={[styles.container, { paddingHorizontal: 20,display:'flex',justifyContent:'center',alignItems:'center' }]}>
+      <ActivityIndicator size="large"  color="#0000ff"/>
     </View>
-  );
+    )
+  }else{
+    return (
+      <View style={styles.container}>
+        <TopMenu buttons={buttons}>
+       
+        
+        </TopMenu>
+           <View style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+            <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',alignContent:'space-between',width:'95%'}}>
+            {daysByLanguageSelected.map((day)=>{
+          return <DaysSelector key={day._id} day={day}></DaysSelector>
+         })}
+            </View>
+         
+          </View>
+      </View>
+    );
+  }
+ 
 };
 export default NewRutineStepThree;
 const styles = StyleSheet.create({

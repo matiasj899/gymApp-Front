@@ -9,7 +9,7 @@ const useDays = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
    
-   
+    setLoading(true)
     const fetchData = async () => {
       try {
         const token=await getDataFromLocalStorage('token')
@@ -26,11 +26,14 @@ const useDays = () => {
     
         const res= await response.json()
         setData(res)
+        setLoading(false)
       } catch (err) {
         console.log(err);
+        setLoading(false)
       }
     };
     fetchData()
+    
   }, []);
 
   return {

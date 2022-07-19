@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TopMenu from "../../components/TopMenu";
 import { lang } from "../../env";
 import useObjectives from "../../repositories/useObjectives";
@@ -95,58 +95,67 @@ const NewRutineStepTwo = ({
       )}
     </View>
   );
-  return (
-    <View style={styles.container}>
-      <TopMenu buttons={buttons}>
-     
-      
-      </TopMenu>
-         <View style={{display:'flex',justifyContent:'space-evenly',alignItems:'center', height:'90%'}}>
-        <View style={{width:'85%'}}>
-          <Text style={{color:'#7F7F7F',fontSize:24,marginBottom:20}}>Objetivo</Text>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {objectivesByLanguageSelected.map((level) => {
-              return (
-                <LevelSelector
-                rutineForm={rutineForm}
-                  level={level}
-                  handleOnPress={handleSelectObjective}
-                  key={level._id}
-                ></LevelSelector>
-              );
-            })}
-          </View>
-        </View>
-        <View style={{width:'90%'}}>
-          <Text style={{color:'#7F7F7F',fontSize:24,marginBottom:20}}>Nivel de entrenamiento</Text>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {levelsByLanguageSelected.map((level) => {
-              return (
-                <LevelSelector
-                rutineForm={rutineForm}
-                  level={level}
-                  handleOnPress={handleSelectLevel}
-                  key={level._id}
-                ></LevelSelector>
-              );
-            })}
-          </View>
-        </View>
-        </View>
+  if(loadingObjectives || loadingTrainingLevels){
+    return (
+      <View style={[styles.container, { paddingHorizontal: 20,display:'flex',justifyContent:'center',alignItems:'center' }]}>
+      <ActivityIndicator size="large"  color="#0000ff"/>
     </View>
-  );
+    )
+  }else{
+    return (
+      <View style={styles.container}>
+        <TopMenu buttons={buttons}>
+       
+        
+        </TopMenu>
+           <View style={{display:'flex',justifyContent:'space-evenly',alignItems:'center', height:'90%'}}>
+          <View style={{width:'85%'}}>
+            <Text style={{color:'#7F7F7F',fontSize:24,marginBottom:20}}>Objetivo</Text>
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {objectivesByLanguageSelected.map((level) => {
+                return (
+                  <LevelSelector
+                  rutineForm={rutineForm}
+                    level={level}
+                    handleOnPress={handleSelectObjective}
+                    key={level._id}
+                  ></LevelSelector>
+                );
+              })}
+            </View>
+          </View>
+          <View style={{width:'90%'}}>
+            <Text style={{color:'#7F7F7F',fontSize:24,marginBottom:20}}>Nivel de entrenamiento</Text>
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {levelsByLanguageSelected.map((level) => {
+                return (
+                  <LevelSelector
+                  rutineForm={rutineForm}
+                    level={level}
+                    handleOnPress={handleSelectLevel}
+                    key={level._id}
+                  ></LevelSelector>
+                );
+              })}
+            </View>
+          </View>
+          </View>
+      </View>
+    );
+  }
+ 
 };
 export default NewRutineStepTwo;
 const styles = StyleSheet.create({
