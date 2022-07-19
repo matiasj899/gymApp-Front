@@ -17,6 +17,9 @@ import {
 } from "@expo-google-fonts/roboto";
 import AppLoading from "expo-app-loading";
 import AfiliateSelector from "../../components/AfiliateSelector";
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from "@react-navigation/native";
+import TopMenu from "../../components/TopMenu";
 
 const NewRutineStepOne = ({
   rutineForm,
@@ -26,60 +29,54 @@ const NewRutineStepOne = ({
   selectedTab,
 }) => {
   const afiliatesEntries = Object.entries(afiliatesOrderedByGroup);
-
+  const navigation = useNavigation();
   const handleSelectAfiliate = (afiliate) => {
     setRutineForm({
       ...rutineForm,
       userId: afiliate._id,
     });
   };
-  const TopMenu = ({ children }) => {
-    return (
-      <View>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            height: 64,
-            borderBottomColor: "gray",
-            borderBottomWidth: 1,
-          }}
-        >
-          {rutineForm.userId ? (
-            <TouchableOpacity
-              onPress={() =>
-                setRutineForm({
-                  userId: null,
-                  days: null,
-                })
-              }
-            >
-              <Text>x</Text>
-            </TouchableOpacity>
-          ) : (
-            <View>
-              <Text>Atras</Text>
-            </View>
-          )}
-          <View>
-            <Text>Seleccionar</Text>
-          </View>
-          {rutineForm.userId ? (
-            <TouchableOpacity onPress={() => setSelectedTab("B")}>
-              <Text>Adelante</Text>
-            </TouchableOpacity>
-          ) : (
-            <View>
-              <Text></Text>
-            </View>
-          )}
-        </View>
-        {children}
-      </View>
-    );
-  };
+  const buttons=<View style={{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 64,
+   
+  }}>{rutineForm.userId ? (
+    <TouchableOpacity
+      onPress={() =>
+        setRutineForm({
+          userId: null,
+          days: null,
+        })
+      }
+    >
+      <MaterialIcon name={'close'} color='black' size={25}></MaterialIcon>
+    </TouchableOpacity>
+  ) : (
+    <View>
+       <TouchableOpacity
+      onPress={() => navigation.push('TabBar', { screen: 'Home' })
+      }
+    >
+      <MaterialIcon name={'arrow-back'} color='black' size={25}></MaterialIcon>
+    </TouchableOpacity>
+    </View>
+  )}
+  <View>
+   {rutineForm.userId? <Text>Crear rutina para...</Text>: <Text>Seleccionar</Text>}
+  </View>
+  {rutineForm.userId ? (
+    <TouchableOpacity onPress={() => setSelectedTab("B")}>
+    <MaterialIcon name={'check'} color='black' size={25}></MaterialIcon>
+    </TouchableOpacity>
+  ) : (
+    <View>
+       <MaterialIcon name={'check'} color='transparent' size={25}></MaterialIcon>
+    </View>
+  )}</View>
+  
 
   const renderEachAfiliate = (afiliate) => {
     return (
@@ -119,23 +116,13 @@ const NewRutineStepOne = ({
             renderItem={renderEachAfiliate}
             keyExtractor={(item) => item._id}
           ></FlatList>
-          {/*  {group[1]?.map((afiliate) => {
-              return (
-                <AfiliateSelector
-                  handleOnPress={handleSelectAfiliate}
-                  afiliate={afiliate}
-                  rutineForm={rutineForm}
-                  key={afiliate.id}
-                ></AfiliateSelector>
-              );
-            })}*/}
         </View>
       </View>
     );
   };
   return (
     <View>
-      <TopMenu>
+      <TopMenu buttons={buttons}>
         <View style={{ paddingHorizontal: 20 }}>
           <View>
             <Text>Lista de afiliados</Text>

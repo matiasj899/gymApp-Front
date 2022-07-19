@@ -6,6 +6,7 @@ import { View,Text, StyleSheet,TouchableOpacity  } from 'react-native';
 import { getDataFromLocalStorage, removeDataFromLocalStorage } from '../services/loginService';
 import ProfileImage from './ProfileImage';
 import { spanishDict } from '../language/esp';
+import Button from './Button';
 
  const DrawnerMenuContent=()=>{
     const [user,setUser]=useState()
@@ -31,7 +32,7 @@ import { spanishDict } from '../language/esp';
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around',backgroundColor:'#363535' }}>
             <View style={{height:'75%',width:'85%'}}>
-            <View style={{display:'flex',justifyContent:'center',alignItems:'center',marginBottom:15}}>
+            <View style={{display:'flex',justifyContent:'center',alignItems:'center',marginBottom:30}}>
             <ProfileImage profilePic={user?.profilePic} width={105} height={105}></ProfileImage>
             <View style={{paddingTop:10,paddingBottom:5}}>
                 <Text style={{color:'white',fontSize:18,fontWeight:'bold'}}>{user?.userName + ' ' + user?.lastName}</Text>
@@ -40,72 +41,18 @@ import { spanishDict } from '../language/esp';
                 <Text style={{color:'#B4B4B4',fontSize:14}}>{spanishDict[user?.roleId.name]}</Text>
             </View>
             </View>
-          <View>
-          <View >
-            <TouchableOpacity
-              
-              activeOpacity={0.7}
-              onPress={() => {
-               handleLogout()
-              }}
-            >
-              <Text style={[styles.text, {color:'white'}]}>
-              Mi Cuenta
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View >
-            <TouchableOpacity
-              
-              activeOpacity={0.7}
-              onPress={() => {
-               handleLogout()
-              }}
-            >
-              <Text style={[styles.text, {color:'white'}]}>
-              Crear Rutina Personalizada
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View >
-            <TouchableOpacity
-              
-              activeOpacity={0.7}
-              onPress={() => {
-               handleLogout()
-              }}
-            >
-              <Text style={[styles.text, {color:'white'}]}>
-              Crear Reto
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View >
-            <TouchableOpacity
-              
-              activeOpacity={0.7}
-              onPress={() => {
-               handleLogout()
-              }}
-            >
-              <Text style={[styles.text, {color:'white'}]}>
-              Ayuda
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View >
-            <TouchableOpacity
-              
-              activeOpacity={0.7}
-              onPress={() => {
-               handleLogout()
-              }}
-            >
-              <Text style={[styles.text, {color:'white'}]}>
-                Cerrar sesion
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <View style={{
+            display:'flex',justifyContent:'space-between', height:'30%'
+          }}>
+            <Button buttonText={'Mi cuenta'} buttonOnPress={()=>{ navigation.push('TabBar', { screen: 'Cuenta' })}} buttonTextStyles={[{color:'white'}]}></Button>
+            <Button buttonText={'Crear Rutina Personalizada'} buttonOnPress={()=>{ navigation.push('NewRutine')}} buttonTextStyles={[{color:'white'}]}></Button>
+            <Button buttonText={'Crear Reto'} buttonOnPress={()=>{ navigation.push('NewRutine')}} buttonTextStyles={[{color:'white'}]}></Button>
+            <Button buttonText={'Ayuda'} buttonOnPress={()=>{ navigation.push('TabBar', { screen: 'Cuenta' })}} buttonTextStyles={[{color:'white'}]}></Button>
+            <Button buttonText={'Cerrar Sesión'} buttonOnPress={()=>{ handleLogout()}} buttonTextStyles={[{color:'white'}]}></Button>
+          
+        
+       
+       
           </View>
             </View>
            

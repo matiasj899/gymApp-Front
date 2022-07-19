@@ -1,60 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React from 'react'
 import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
-import {
-  useFonts,
-  Roboto_400Regular,
-  Roboto_400Regular_Italic,
-} from "@expo-google-fonts/roboto";
-import AppLoading from "expo-app-loading";
-import ProfileImage from "./ProfileImage";
-
-const AfiliateSelector=({handleOnPress,afiliate,rutineForm})=>{
-   
+    Text,
+    View,
+    Image,
+    StyleSheet,
+    TouchableOpacity,
+    TextInput,
+  } from "react-native";
+const LevelSelector=({handleOnPress,level,rutineForm})=>{
+    const elementIsSelected=()=>{
+const values=Object.values(rutineForm)
+const rutineFormHasTheId=values.includes(level._id)
+return rutineFormHasTheId
+    }
     return (
         <TouchableOpacity
-          onPress={()=>handleOnPress(afiliate)}
+          onPress={()=>handleOnPress(level)}
           style={{
-            backgroundColor:
-              rutineForm.userId === afiliate._id
-                ? "lightgray"
-                : null,
+        backgroundColor:elementIsSelected()?'#08318B':'#363535',
             paddingVertical: 5,
             paddingHorizontal: 10,
-            width: "100%",
+            width: "50%",
             borderRadius: 5,
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center',
+            margin:10
           }}
-          key={afiliate._id}
+          key={level._id}
         >
           <View
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
+              justifyContent:'center',
               width: 200,
             }}
           >
-            <ProfileImage profilePic={afiliate.profilePic}></ProfileImage>
+          
 
             <Text
               style={{
                 paddingHorizontal: 10,
-                textAlign: "left",
+                textAlign: "center",
+                color:'white',
+                fontSize:12
               }}
             >
-              {afiliate.userName + ' ' + afiliate.lastName}
+              {level.value.toUpperCase()}
             </Text>
           </View>
         </TouchableOpacity>
       );
 }
-
 const styles = StyleSheet.create({
     text: {
       fontFamily: "Roboto_400Regular",
@@ -168,4 +167,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default AfiliateSelector;
+export default LevelSelector

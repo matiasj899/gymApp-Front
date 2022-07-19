@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import {
   useFonts,
@@ -17,6 +18,7 @@ import useAfiliates from "../../repositories/useAfiliates";
 import { groupByKey } from "../../utils/utils";
 import NewRutineStepOne from "./NewRutineStepOne";
 import NewRutineStepTwo from "./NewRutineStepTwo";
+import NewRutineStepThree from "./NewRutineStepThree";
 
 const NewRutine = () => {
   let [fontsLoaded] = useFonts({
@@ -29,6 +31,8 @@ const NewRutine = () => {
   const [rutineForm, setRutineForm] = useState({
     userId: null,
     days: null,
+    objectiveId:null,
+    levelId:null,
   });
 
 const sortAfiliates=(usersFilteredByAfiliateRol)=>{
@@ -64,13 +68,11 @@ const sortAfiliatesResult=sortAfiliates(usersFilteredByAfiliateRol)
         )
       case "B":
         return (
-        <NewRutineStepTwo></NewRutineStepTwo>
+        <NewRutineStepTwo rutineForm={rutineForm} setRutineForm={setRutineForm}  selectedTab={selectedTab} setSelectedTab={setSelectedTab}></NewRutineStepTwo>
         );
       case "C":
         return (
-          <View>
-            <Text>3</Text>
-          </View>
+         <NewRutineStepThree rutineForm={rutineForm} setRutineForm={setRutineForm}  selectedTab={selectedTab} setSelectedTab={setSelectedTab}></NewRutineStepThree>
         );
       default:
         return; 
@@ -80,8 +82,8 @@ const sortAfiliatesResult=sortAfiliates(usersFilteredByAfiliateRol)
   if (!fontsLoaded || !afiliates) {
     return <AppLoading />;
   }else if(afiliates.length===0){
-    return (<View style={[styles.container, { paddingHorizontal: 20 }]}>
-    <Text>Cargando</Text>
+    return (<View style={[styles.container, { paddingHorizontal: 20,display:'flex',justifyContent:'center',alignItems:'center' }]}>
+    <ActivityIndicator size="large"  color="#0000ff"/>
   </View>)
   } else {
     return (

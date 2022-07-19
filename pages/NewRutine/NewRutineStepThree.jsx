@@ -7,31 +7,24 @@ import useTrainingLevel from "../../repositories/useTrainingLevel";
 import { filterByLang } from "../../utils/utils";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import LevelSelector from "../../components/LevelSelector";
+import useDays from "../../repositories/useDays";
 
-const NewRutineStepTwo = ({
+const NewRutineStepThree = ({
   rutineForm,
   setRutineForm,
   afiliatesOrderedByGroup,
   setSelectedTab,
   selectedTab,
 }) => {
-  const { objectives, loadingObjectives } = useObjectives();
+  const { days, loadingDays } = useDays();
   const { trainingLevels, loadingTrainingLevels } = useTrainingLevel();
   const [levelsByLanguageSelected, setLevelsByLanguageSelected] = useState([]);
   const [objectivesByLanguageSelected, setObjectivesByLanguageSelected] =
     useState([]);
 
   useEffect(() => {
-    if (objectives.length > 0) {
-      const objectivesFilteredByLang = filterByLang(objectives);
-
-      setObjectivesByLanguageSelected(objectivesFilteredByLang);
-    }
-    if (trainingLevels.length > 0) {
-      const trainingLevelsFilteredByLang = filterByLang(trainingLevels);
-      setLevelsByLanguageSelected(trainingLevelsFilteredByLang);
-    }
-  }, [objectives, trainingLevels]);
+  console.log(days)
+  }, [days]);
   const handleSelectLevel = (level) => {
     console.log(level);
     setRutineForm({
@@ -78,10 +71,10 @@ const NewRutineStepTwo = ({
           </TouchableOpacity>
         </View>
       <View>
-        <Text>Seleccionar opciones</Text>
+        <Text>Seleccionar dia</Text>
       </View>
       {rutineForm.objectiveId && rutineForm.levelId ? (
-        <TouchableOpacity onPress={() => setSelectedTab("C")}>
+        <TouchableOpacity onPress={() => setSelectedTab("B")}>
           <MaterialIcon name={"check"} color="black" size={25}></MaterialIcon>
         </TouchableOpacity>
       ) : (
@@ -102,53 +95,12 @@ const NewRutineStepTwo = ({
       
       </TopMenu>
          <View style={{display:'flex',justifyContent:'space-evenly',alignItems:'center', height:'90%'}}>
-        <View style={{width:'85%'}}>
-          <Text style={{color:'#7F7F7F',fontSize:24,marginBottom:20}}>Objetivo</Text>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {objectivesByLanguageSelected.map((level) => {
-              return (
-                <LevelSelector
-                rutineForm={rutineForm}
-                  level={level}
-                  handleOnPress={handleSelectObjective}
-                  key={level._id}
-                ></LevelSelector>
-              );
-            })}
-          </View>
-        </View>
-        <View style={{width:'90%'}}>
-          <Text style={{color:'#7F7F7F',fontSize:24,marginBottom:20}}>Nivel de entrenamiento</Text>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {levelsByLanguageSelected.map((level) => {
-              return (
-                <LevelSelector
-                rutineForm={rutineForm}
-                  level={level}
-                  handleOnPress={handleSelectLevel}
-                  key={level._id}
-                ></LevelSelector>
-              );
-            })}
-          </View>
-        </View>
+       
         </View>
     </View>
   );
 };
-export default NewRutineStepTwo;
+export default NewRutineStepThree;
 const styles = StyleSheet.create({
   text: {
     fontFamily: "Roboto_400Regular",

@@ -50,17 +50,17 @@ const TabBar = () => {
       >
              <Tab.Screen name="Afiliados" component={Profile} options={{
         tabBarIcon:({ focused, color, size })=>{
-return <Icon name={'clipboard'} color='white' size={25}></Icon>
+return <Icon name={'clipboard'} color={focused?'white':'gray'} size={25}></Icon>
         }
         }}/>
         <Tab.Screen name="Home" component={HomeStackScreen} options={{
         tabBarIcon:({ focused, color, size })=>{
-return <Icon name={'home'} color='white' size={25}></Icon>
+return <Icon name={'home'} color={focused?'white':'gray'} size={25}></Icon>
         }
         }}/>
         <Tab.Screen name="Cuenta" component={Profile} options={{
         tabBarIcon:({ focused, color, size })=>{
-return <MaterialIcon name={'account-circle'} color='white' size={25}></MaterialIcon>
+return <MaterialIcon name={'account-circle'} color={focused?'white':'gray'} size={25}></MaterialIcon>
         }
         }}/>
         
