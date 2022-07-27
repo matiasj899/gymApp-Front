@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const DaysSelector=({day})=>{
-    return <View key={day._id} style={styles.box}><Text>{day.value}</Text></View>
+const DaysSelector=({day,handleOnPress,rutineForm})=>{
+ 
+  const dayIsSelected=(rutineForm)=>{
+  
+    const rutineFormHasTheId=rutineForm.trainingDays.some((trainingDay)=>trainingDay._id===day._id)
+ 
+    return rutineFormHasTheId
+        }
+    return <TouchableOpacity key={day._id} style={styles.box}   onPress={()=>handleOnPress(day)}><Text>{day.value}</Text>{dayIsSelected(rutineForm)?<Text>Seleccionado</Text>:null}</TouchableOpacity>
 }
 
 export default DaysSelector

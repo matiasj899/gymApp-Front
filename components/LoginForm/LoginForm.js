@@ -58,6 +58,7 @@ const handleLogin=async()=>{
       <View style={styles.btnCn}>
         <View style={isFocused?[styles.btn, styles.inputCn,styles.inputCnFocused]:[styles.btn, styles.inputCn]} >
           <TextInput
+          secureTextEntry={true}
           autoCapitalize="none"
             value={password}
             style={styles.input}

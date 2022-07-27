@@ -19,6 +19,7 @@ import { groupByKey } from "../../utils/utils";
 import NewRutineStepOne from "./NewRutineStepOne";
 import NewRutineStepTwo from "./NewRutineStepTwo";
 import NewRutineStepThree from "./NewRutineStepThree";
+import NewRutineStepFour from "./NewRutineStepFour";
 
 const NewRutine = () => {
   let [fontsLoaded] = useFonts({
@@ -33,6 +34,7 @@ const NewRutine = () => {
     days: null,
     objectiveId:null,
     levelId:null,
+    trainingDays:[]
   });
 
 const sortAfiliates=(usersFilteredByAfiliateRol)=>{
@@ -73,6 +75,10 @@ const sortAfiliatesResult=sortAfiliates(usersFilteredByAfiliateRol)
       case "C":
         return (
          <NewRutineStepThree rutineForm={rutineForm} setRutineForm={setRutineForm}  selectedTab={selectedTab} setSelectedTab={setSelectedTab}></NewRutineStepThree>
+        );
+        case "D":
+        return (
+         <NewRutineStepFour rutineForm={rutineForm} setRutineForm={setRutineForm}  selectedTab={selectedTab} setSelectedTab={setSelectedTab}></NewRutineStepFour>
         );
       default:
         return; 

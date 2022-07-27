@@ -25,7 +25,11 @@ const NewRutineStepThree = ({
   useEffect(() => {
     if (days.length > 0) {
       const daysFilteredByLang = filterByLang(days);
-
+      const addSelectedPropertyToDays=daysFilteredByLang.map((day)=>{
+        day.selected=false
+        return day
+      })
+      console.log(addSelectedPropertyToDays)
       setDaysByLanguageSelected(daysFilteredByLang);
     }
   }, [days]);
@@ -39,7 +43,38 @@ const NewRutineStepThree = ({
       levelId:null
     })
   }
-  console.log(rutineForm);
+
+  const toggleDaySelectedState=(day)=>{
+ 
+    const daySelected=rutineForm.trainingDays.find((days)=>days._id===day._id)
+    if(daySelected){
+      daySelected.selected=false
+
+      const trainingDaysSelected=rutineForm.trainingDays.filter((days)=>days._id!==daySelected._id)
+  
+      setRutineForm({
+        ...rutineForm,
+        trainingDays:trainingDaysSelected
+      })
+    }else{
+      day.selected=true
+      setRutineForm({
+        ...rutineForm,
+        trainingDays:[...rutineForm.trainingDays,day]
+      })
+    }
+    
+   //setDaysByLanguageSelected([...daysByLanguageSelected])
+   
+  }
+
+  const handleDaySelected=(day)=>{
+ toggleDaySelectedState(day)
+
+setSelectedTab('D')
+  }
+  console.log(rutineForm)
+console.log(daysByLanguageSelected)
   const buttons = (
     <View
       style={{
@@ -96,7 +131,7 @@ const NewRutineStepThree = ({
            <View style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
             <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',alignContent:'space-between',width:'95%'}}>
             {daysByLanguageSelected.map((day)=>{
-          return <DaysSelector key={day._id} day={day}></DaysSelector>
+          return <DaysSelector key={day._id} day={day} handleOnPress={handleDaySelected}   rutineForm={rutineForm}></DaysSelector>
          })}
             </View>
          
