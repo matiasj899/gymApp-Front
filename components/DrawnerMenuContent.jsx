@@ -44,7 +44,7 @@ import Button from './Button';
           <View style={{
             display:'flex',justifyContent:'space-between', height:'30%'
           }}>
-            <Button buttonText={'Mi cuenta'} buttonOnPress={()=>{ navigation.push('TabBar', { screen: 'Cuenta' })}} buttonTextStyles={[{color:'white'}]}></Button>
+            <Button buttonText={'Mi cuenta'} buttonOnPress={()=>{ navigation.push('TabBar', { screen: 'Mi cuenta' })}} buttonTextStyles={[{color:'white'}]}></Button>
             <Button buttonText={'Crear Rutina Personalizada'} buttonOnPress={()=>{ navigation.push('NewRutine')}} buttonTextStyles={[{color:'white'}]}></Button>
             <Button buttonText={'Crear Reto'} buttonOnPress={()=>{ navigation.push('NewRutine')}} buttonTextStyles={[{color:'white'}]}></Button>
             <Button buttonText={'Ayuda'} buttonOnPress={()=>{ navigation.push('TabBar', { screen: 'Cuenta' })}} buttonTextStyles={[{color:'white'}]}></Button>

@@ -1,43 +1,9 @@
-import { createDrawerNavigator,useDrawerStatus  } from '@react-navigation/drawer';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { useEffect,useState } from 'react';
-import { View,Text, StyleSheet,TouchableOpacity  } from 'react-native';
-import { useSelector } from 'react-redux';
-import DrawnerMenuContent from '../components/DrawnerMenuContent';
-import ProfileImage from '../components/ProfileImage';
-import { getDataFromLocalStorage, removeDataFromLocalStorage } from '../services/loginService';
-import HomeByRole from './HomeByRole';
-import Profile from './Profile';
-import TabBar from './TabBar';
+import { StyleSheet } from "react-native";
 
-
-
- 
-  
-  const DrawerMenu = createDrawerNavigator();
-  
-  function DrawerMenuScreen() {
-    const currentRouteName=useSelector((state)=>state.currentRoute.name)
-    return (
-      <DrawerMenu.Navigator
-        id="RightDrawer"
-        drawerContent={(props) => <DrawnerMenuContent {...props} />}
-        
-        screenOptions={{
-          drawerPosition: 'left',
-          headerShown: currentRouteName==='Home'?true:false,
-          headerTitleAlign:'center',
-          headerShadowVisible:false,
-          swipeEnabled: currentRouteName==='Home'?true:false
-        }}>
-        <DrawerMenu.Screen name="SPORTFIT" component={TabBar} />
-      </DrawerMenu.Navigator>
-    );
-  }
-  export default DrawerMenuScreen
-
-  const styles = StyleSheet.create({
-  
+export const styles = StyleSheet.create({
+    text: {
+      fontFamily: "Roboto_400Regular",
+    },
     imageCn: {
       width: "100%",
       height: "50%",

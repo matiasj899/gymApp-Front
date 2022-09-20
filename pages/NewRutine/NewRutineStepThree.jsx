@@ -29,7 +29,7 @@ const NewRutineStepThree = ({
         day.selected=false
         return day
       })
-      console.log(addSelectedPropertyToDays)
+     
       setDaysByLanguageSelected(daysFilteredByLang);
     }
   }, [days]);
@@ -73,8 +73,7 @@ const NewRutineStepThree = ({
 
 setSelectedTab('D')
   }
-  console.log(rutineForm)
-console.log(daysByLanguageSelected)
+
   const buttons = (
     <View
       style={{

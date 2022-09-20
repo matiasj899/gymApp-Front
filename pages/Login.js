@@ -19,12 +19,11 @@ import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
  const {isLogged}= useIsLogged()
- console.log(isLogged)
   const [wantLogin, setWantLogin] = useState(false);
   const navigation = useNavigation();
 useEffect(() => {
 if(isLogged){
-  navigation.push("TabBar");
+  navigation.navigate("RightDrawerScreen", { screen: "SPORTFIT" });
 }
 }, [isLogged])
 
@@ -42,7 +41,7 @@ if(isLogged){
           <View style={styles.imageAndTextCn}>
             <Image
               style={styles.image}
-              source={require("../public/images/loginLogo.png")}
+              source={require("../assets/images/LoginLogo.png")}
             ></Image>
             {!wantLogin && (
               <Text style={[styles.text, styles.firstText]}>

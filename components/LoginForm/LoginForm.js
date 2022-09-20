@@ -15,6 +15,9 @@ import {
 import AppLoading from "expo-app-loading";
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { loginService, setDataToLocalStorage } from "../../services/loginService";
+import { useDispatch } from "react-redux";
+import { setCurrentUserData, setUserData } from "../../store/reducer";
+import SwitchComponent from "../SwitchComponent/SwitchComponent";
 
 
 const LoginForm=()=>{
@@ -26,6 +29,7 @@ const LoginForm=()=>{
       Roboto_400Regular_Italic,
     });
     const navigation = useNavigation()
+    const dispatch=useDispatch()
     const route = useRoute()
 const handleLogin=async()=>{
   const {token,userExists}=await loginService({email,password})
@@ -33,7 +37,8 @@ const handleLogin=async()=>{
  if(token){
   await setDataToLocalStorage('token',token);
   await setDataToLocalStorage('userData',userExists);
-  navigation.push('TabBar')
+  dispatch(setCurrentUserData(userExists))
+  navigation.navigate("RightDrawerScreen", { screen: "SPORTFIT" })
  }
 }
   if (!fontsLoaded) {
@@ -42,6 +47,14 @@ const handleLogin=async()=>{
     
     return  (
     <>
+    <View>
+      <SwitchComponent leftText={"AFILIADO"}
+          RightText={"ENTRENADOR"}
+          // leftActive={registrationStore.accountType === AccountTypes.employee}
+           onPressLeft={() =>console.log('xd')}
+           onPressRight={() =>console.log('xd') }
+       ></SwitchComponent>
+    </View>
       <View style={styles.btnCn}>
         <View style={[styles.btn, styles.inputCn]}>
           <TextInput
